@@ -1,50 +1,44 @@
 # Project Overview
-This analysis aims to use clustering to identify loyal customers based on a mix of purchase and engagement behaviors and develop straightforward business rule to allow for real time targeting for promotions.
+This analysis leverages clustering to identify loyal customers based on purchase and engagement behaviors, and develops straightforward business rule to enable real time targeting for promotions.
 
 # Business Background and Problem Definition :
-Company A is an eCommerce marketplace. 
+Company A is an eCommerce marketplace. As part of its initiative to strengthen customer loyalty, the company aims to provide weekly personalized promotions to its top customers.
 
-**Objective**: As part of its initiative to strengthen customer loyalty, the company aims to provide weekly personalized promotions to its top customers.
+**Objective**: 
+1. Identify loyal customers using K means clustering.
+2. Develop simple, interpretable business rules using decision tree model, enabling the operations team to target loyal customers efficiently each week.
 
-** To do so? **  
-1. Identify a group of Loyal Customers
-   - Through K means Clustering and identify the characteristics of loyal customers
-2. Develop a busiess rule to identify Loyal Customers
-  - Through decision tree, (to allow for business operation team to allow for real time targeted each week by identifying 'Loyal Customers' based on this rule) --> easy and straightforward for business team to understand 
-  - Translate the cluster definition into clear rules that business teams can use directly.
-  
 ## Dataset
-Aggregaed over the past 60 days: 
+Averaged over the past 6 weeks: 
 Transactional Features:
-- total_spend – Total amount spent ($)
-- purchase_count – Number of orders placed
+- total_spend – Avg weekly $ spent 
+- purchase_count – Avg weekly number of orders placed
 - avg_order_value – Average spend per order
 
 Digital Engagement Features:
 - avg_session_length – Average session duration (minutes)
-- wishlist_adds – Number of items added to wishlist
-- product_reviews – Number of product reviews written
+- wishlist_adds – Average number of items added to wishlist
+- product_reviews – Average product reviews written
 
 # Methodology 
 1. Data Preprocessing:
-  - One Hot Encoding categorical features
   - Standard Scaling numerical features
-2. K Means Clustering
-   - Elbow method to determine optimal K
-  1. First K-Means Clustering – Full Customer Base:
-    - Identify a "top cluster" with significantly higher spend and engagement
+2. K Means Clustering:
+   - Elbow method to determine optimal number of clusters (k) 
+  1. First K-Means Clustering:
+   - On the entire customer base to identify a high spending and highly engaged cluster
+   - Visualize and confirm using principal component analysis (PCA) 
   2. Second K-Means Clustering:
-    - Recluster only on top cluster segment to isolate the higher spend and engagement customers, to reduce noise and identify more subtle patterns of the loyal customers
-3. Decision Tree – Threshold Extraction
-   - Create Target Variable: is_premium_candidate = 1 for customers in the final loyal cluster, else 0
-   - Train/Test Split and Train/Fit/Predict the model
-   - Extract business rules 
+    - Recluster only within the top cluster to reduce noise and isolate true loyal customers
+3. Decision Tree Modeling:
+   - Create Target Variable: is_loyal_customer = 1 for customers in the final loyal cluster, else 0
+   - Train/Test Split and Train/Fit/Predict the model and evaluate the model (Accuracy, Precision, F1 Scores) 
+   - Extract business rules for identifying loyal customers
 
 # Conclusion 
-- Loyal Customers are defined as those customers with higher spending... etc 
+- Loyal Customers are defined as those customers with higher spending and engagement. 
 - Specifically, offers should be given to customers who had
-  - 
-
-
-
-**Final Recommendation** 
+   - **avg weekly spend > 61.26**
+   - **avg session length > 5.90**
+   - **avg wishlist added item > 6.39**
+By applying these business rules, the team can efficiently select customers each week to send out the offers for loyal customers.
